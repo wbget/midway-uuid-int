@@ -1,6 +1,6 @@
 {
   "name": "@wbget/midway-uuid-int",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "midwayjs uuid-int module",
   "main": "dist/index.js",
   "typings": "index.d.ts",
