@@ -1,4 +1,10 @@
-import { Config, Provide, Scope, ScopeEnum } from '@midwayjs/core';
+import {
+  Config,
+  MidwayCommonError,
+  Provide,
+  Scope,
+  ScopeEnum,
+} from '@midwayjs/core';
 import { RedisService } from '@midwayjs/redis';
 import * as uuid from 'uuid-int';
 
@@ -16,6 +22,9 @@ export class UUIDIntService {
   async init() {
     const { key } = this.config;
     if (!!key) {
+      if (!this.redis) {
+        throw new MidwayCommonError('need import [redis]');
+      }
       const rid = await this.redis.incr(key);
       const id = rid % IDMAX;
       if (rid >= IDMAX) {
