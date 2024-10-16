@@ -7,6 +7,7 @@ const IDMAX = 512;
 @Scope(ScopeEnum.Singleton)
 export class UUIDIntService {
   redis: RedisService;
+
   gen: uuid.Generator;
 
   @Config('uuidInt')
