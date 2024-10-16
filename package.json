@@ -1,7 +1,7 @@
 {
-  "name": "midway-custom-component",
+  "name": "@wbget/midway-uuid-int",
   "version": "0.0.1",
-  "description": "This is a midway component sample",
+  "description": "midwayjs uuid-int module",
   "main": "dist/index.js",
   "typings": "index.d.ts",
   "scripts": {
