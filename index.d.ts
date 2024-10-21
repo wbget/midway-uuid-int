@@ -1,11 +1,13 @@
 import '@midwayjs/redis';
-import { PowerPartial } from '@midwayjs/core';
+import { PowerPartial, ServiceFactoryConfigOption } from '@midwayjs/core';
 export * from './dist/index';
 
 declare module 'midway-uuid-int/dist/interface' {
   interface MidwayConfig {
-    uuidInt?: PowerPartial<{
-      key?: string;
-    }>;
+    uuidInt?: ServiceFactoryConfigOption<
+      PowerPartial<{
+        key?: string;
+      }>
+    >;
   }
 }
