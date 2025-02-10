@@ -14,13 +14,19 @@ const IDMAX = 512;
 export class UUIDIntService {
   redis: RedisService;
 
-  gen: uuid.Generator;
+  private gen: uuid.Generator;
 
   @Config('uuidInt')
-  config: { key: string };
+  private config: { key: string };
 
   async init() {
     const { key } = this.config;
+    this.gen = await this.getGen(key);
+  }
+  uuid() {
+    return this.gen.uuid();
+  }
+  async getGen(key: string) {
     if (!!key) {
       if (!this.redis) {
         throw new MidwayCommonError('need import [redis]');
@@ -30,12 +36,9 @@ export class UUIDIntService {
       if (rid >= IDMAX) {
         await this.redis.set(key, 0);
       }
-      this.gen = uuid(id, 1690805352853);
+      return uuid(id, 1690805352853);
     } else {
-      this.gen = uuid(1, 1690805352853);
+      return uuid(1, 1690805352853);
     }
-  }
-  uuid() {
-    return this.gen.uuid();
   }
 }
