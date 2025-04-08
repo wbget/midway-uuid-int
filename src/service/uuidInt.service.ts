@@ -17,11 +17,11 @@ export class UUIDIntService {
   private gen: uuid.Generator;
 
   @Config('uuidInt')
-  private config: { key: string };
+  private config: { key: string; prefix: string };
 
   async init() {
-    const { key } = this.config;
-    this.gen = await this.getGen(key);
+    const { key, prefix } = this.config;
+    this.gen = await this.getGen(`${prefix}:${key}`);
   }
   uuid() {
     return this.gen.uuid();
@@ -31,6 +31,8 @@ export class UUIDIntService {
       if (!this.redis) {
         throw new MidwayCommonError('need import [redis]');
       }
+      const { prefix } = this.config;
+      key = `${prefix}:${key}`;
       const rid = await this.redis.incr(key);
       const id = rid % IDMAX;
       if (rid >= IDMAX) {
